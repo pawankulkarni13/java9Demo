@@ -1,5 +1,18 @@
 ## Java 9 Features
 
+## All Features
+    Platform Module System (Project Jigsaw)
+    Interface Private Methods
+    Try-With Resources
+    Anonymous Classes
+    @SafeVarargs Annotation
+    Collection Factory Methods
+    Process API Improvement
+    New Version-String Scheme
+    JShell: The Java Shell (REPL)
+    Control Panel
+    Stream API Improvement
+
 Java9 docs - https://openjdk.java.net/projects/jdk9/
 
 ### Factory methods for collections
@@ -14,6 +27,12 @@ which extends public java.util.AbstractSet. It is immutable – if we try to add
 an UnsupportedOperationException will be thrown.
 
 ### Modular System
+(A modular JAR file is a JAR file that has a module descriptor, module-info.class, in the top-level directory (or root) directory.
+ 
+ One Jar could contain only one module.
+ 
+ To fix you problem you have to split your project (create several maven modules))
+
 Modular JAR files contain an additional module descriptor. 
 In this module descriptor, dependencies on other modules are expressed through`requires` 
 statements. Additionally, `exports` statements control which packages are accessible to 
@@ -21,8 +40,8 @@ other modules. All non-exported packages are encapsulated in the module by defau
 Here's an example of a module descriptor, which lives in `module-info.java`:
 Other keywords that are used for module definition are requires, exports, uses, opens, provides.
 
-    module com.stark.java12Demo {
-      exports com.stark.java12Demo;
+    module com.stark.java9Demo {
+      exports com.stark.java9Demo;
     
       requires com.stark.java9Demo;
     }
@@ -48,10 +67,12 @@ The immediate feedback of jshell makes it a great tool to explore APIs and try o
 ### Stream API Improvements
 There are four new methods added to the Stream interface: dropWhile, takeWhile, ofNullable. 
 The iterate method gets a new overload, allowing you to provide a Predicate on when to stop iterating
+
 takeWhile - 
 It returns, if this stream is ordered, a stream consisting of the longest prefix of elements taken from 
 this stream that match the given predicate. Otherwise returns, if this stream is unordered, a stream 
 consisting of a subset of elements taken from this stream that match the given predicate.
+
 dropWhile -
 It returns, if this stream is ordered, a stream consisting of the remaining elements of this stream 
 after dropping the longest prefix of elements that match the given predicate. 
@@ -60,6 +81,7 @@ this stream after dropping a subset of elements that match the given predicate.
 
 ### Private methods in Interfaces
 We can write private and private static methods too in an interface using ‘private’ keyword.
+Wait a private Method ? How and who can access it. ?
 
 ### JCMD Sub-Commands
 jcmd command line utility. We will get a list of all classes loaded in the JVM and their inheritance structure.
@@ -115,3 +137,25 @@ In earlier versions of Java, underscore can be used as identifier and to create 
 But in Java 9 release, underscore is a keyword and can't be used as an identifier or variable name.
 
 If we use the underscore character ("_") as an identifier, our source code can no longer be compiled.
+
+### New Version-String Scheme
+Java version-string is a format that contains version specific information. 
+This version-string consists of major, minor, security and patch update releases.
+$MAJOR.$MINOR.$SECURITY.$PATCH
+
+
+### jlink: The Java Linker
+jlink is a tool that can be used to assemble set of modules into a runtime image. 
+It also allows us to assemble module's dependencies into the custom runtime image.
+    
+Link time is a phase between the compile and runtime, jlink works there for linking and assemble modules to runtime image.
+
+### Enhanced Deprecation
+The @Deprecated annotation is improved to provide better information about the status and intended disposition of an API. 
+Following new elements are added.
+    
+    @Deprecated(forRemoval=true): It indicates that the API will be removed from the future release of Java.
+    @Deprecated(since="version"): It contains the Java SE version string that indicates deprecared API element for Java 9.
+    
+    
+- The rt.jar and tools.jar both has been removed from JRE.
